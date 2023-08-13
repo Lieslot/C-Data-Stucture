@@ -1,3 +1,55 @@
+
+
+// 
+
+template<typename T> 
+class VectorIterator {
+
+	private:
+		T* begin;
+		T* cur;
+
+	VectorIterator(T* begin = nullptr) : begin(begin), cur(begin){}
+
+	VectorIterator& operator++() {
+		cur++;
+		
+		return *this;
+	}
+
+	vectorIterator& operator--() {
+		if (begin == cur) return *this;
+		cur--;
+		return *this;
+	}
+
+
+	T& operator*() {
+		return *cur;
+	}
+	T operator*() {
+		return *cur;
+	}
+
+	
+
+	
+	
+
+	
+
+
+
+	
+
+
+
+
+};
+
+
+
+
 template<typename T> 
 class Vector {
 
@@ -10,7 +62,7 @@ class Vector {
 		
 	
 	public:
-
+		
 		Vector() : capacity(0), array(nullptr), len(0){}
 
 		Vector(int count, T initValue = T()) : array(new T[count]), capacity(count), len(count) {
@@ -26,6 +78,8 @@ class Vector {
 				array = nullptr;
 			}
 		}
+
+		VectorIterator<T> iterator;
 
 
 
@@ -116,11 +170,11 @@ class Vector {
 			return array[index];
 		}
 
-		T* begin() {
-			return array;
+		iterator begin() {
+			return iterator(begin);
 		}
 		T* end() {
-			return nullptr;
+			return iterator(nullptr);
 		}
 
 
