@@ -54,7 +54,7 @@ struct Node {
 	T data;
 	int cnt;
 
-	Node(T data) : parent(nullptr), data(data), leftChild(nullptr), rightChild(nullptr), cnt(1) {}
+	Node<T>(T data) : parent(nullptr), data(data), leftChild(nullptr), rightChild(nullptr), cnt(1) {}
 
 
 	
@@ -78,16 +78,28 @@ private:
 		if (cur->rightChild != nullptr) dfs(cur->rightChild);
 	}
 
+	void clear(Node<T>* node) {
+		if (node != nullptr) {
+			clear(node->leftChild);
+			clear(node->rightChild);
+			delete node;
+		}
+	}
+
 
 
 public:
-	BinarySearchTree() {
+	BinarySearchTree<T>() {
 		len = 0;
 		root = nullptr;
 	}
-	BinarySearchTree(T initData) {
+	BinarySearchTree<T>(T initData) {
 		root = new Node<T>(initData);
 		len = 1;
+	}
+
+	~BinarySearchTree<T>() {
+		clear(root);
 	}
 
 	void add(T value) {
